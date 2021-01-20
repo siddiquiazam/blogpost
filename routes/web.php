@@ -17,5 +17,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/posts', 'PostsController@index')->name('posts');
 Route::post('/posts', 'PostsController@store')->name('posts.store');
 Route::get('/posts/create', 'PostsController@create')->name('posts.create');
+Route::get('/posts/{post}', 'PostsController@show')->name('posts.show');
+Route::delete('/posts/{post}', 'PostsController@delete')->name('posts.delete');

@@ -12,7 +12,6 @@
              <p class="text-danger">{{$errors->first('title')}}</p>
          @enderror
       </div>
-   
       <div class="form-group p-3">
          <label for="title">Content</label>
          <textarea type="text" class="form-control" name="body" placeholder="Content"></textarea>
