@@ -14,7 +14,7 @@
          <button type="button" class="btn btn-primary">
             Views <span class="badge bg-secondary">{{ $post->view }}</span>
          </button>
-         <a href="#" class="btn btn-primary">Edit</a>
+         <a href="{{ route('posts.edit', $post->post_id) }}" class="btn btn-primary">Edit</a>
          <form action="{{ route('posts.delete',$post->post_id) }}" method="post" enctype="multipart/form-data" class="d-inline">
          @csrf
          @method('DELETE')

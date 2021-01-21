@@ -42,6 +42,32 @@ class PostsController extends Controller
         return redirect('/posts');
     }
 
+    public function edit(Post $post) {
+        return view('posts.edit', [
+            'post' => $post
+        ]);
+    }
+
+    public function update(Request $request, Post $post) {
+        $request->validate([
+            'title' => 'required',
+            'body' => 'required',
+            'image' => 'mimes:jpeg,jpg,png,gif'
+        ]);
+        if($request->has('image')) {
+            $filename = $request->image->getClientOriginalName();
+            if(!($filename==$post->image)) {
+                Storage::disk('public')->delete('images/'.$post->image);
+                $request->image->storeAs('images',$filename,'public');
+                $post->image = $filename;
+            }
+        }
+        $post->title = $request->title;
+        $post->body = $request->body;
+        $post->save();
+        return redirect('/posts');
+    }
+
     public function delete(Post $post) {
         Storage::disk('public')->delete('images/'.$post->image);
         $post->delete();
