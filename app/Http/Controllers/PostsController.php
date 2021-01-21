@@ -56,7 +56,7 @@ class PostsController extends Controller
         ]);
         if($request->has('image')) {
             $filename = $request->image->getClientOriginalName();
-            if(!($filename==$post->image)) {
+            if(!($filename == $post->image)) {
                 Storage::disk('public')->delete('images/'.$post->image);
                 $request->image->storeAs('images',$filename,'public');
                 $post->image = $filename;
