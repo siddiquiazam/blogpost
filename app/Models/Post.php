@@ -10,7 +10,7 @@ class Post extends Model
     use HasFactory;
     protected $primaryKey = 'post_id';
 
-    public function comment() {
+    public function comments() {
         return $this->hasMany(Comment::class);
     }
 }
