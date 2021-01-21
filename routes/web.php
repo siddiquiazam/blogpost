@@ -24,3 +24,4 @@ Route::get('/posts/{post}', 'PostsController@show')->name('posts.show');
 Route::put('/posts/{post}', 'PostsController@update')->name('posts.update');
 Route::get('/posts/{post}/edit', 'PostsController@edit')->name('posts.edit');
 Route::delete('/posts/{post}', 'PostsController@delete')->name('posts.delete');
+Route::post('/posts/{post}', 'CommentsController@store')->name('comment.store');

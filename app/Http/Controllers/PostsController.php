@@ -17,8 +17,11 @@ class PostsController extends Controller
     public function show(Post $post) {
         $post->view += 1;
         $post->save();
+        $comments = $post->comment;
+        return $comments;
         return view('posts.show', [
-            'post' => $post
+            'post' => $post,
+            'comments' => $comments
         ]);
     }
 

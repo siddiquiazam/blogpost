@@ -20,11 +20,15 @@
          @method('DELETE')
             <input type="submit" value="Delete" class="btn btn-danger">
          </form>
-         <form action="" class="mt-3">
+         <form action="{{ route('comment.store',$post->post_id) }}" method="POST" enctype="multipart/form-data" class="mt-3">
+         @csrf
             <div class="form-group">
                <label for="comment"><h5>Add Comment</h5></label>
-               <textarea name="comment" class="form-control" id="comment" cols="10" rows="3"
+               <textarea name="body" class="form-control" id="comment" cols="10" rows="3"
                   placeholder="Add Comment"></textarea>
+               @error('body')
+                  <p class="text-danger">{{$errors->first('body')}}</p>
+               @enderror
             </div>
             <div class="form-group">
                <input type="submit" value="Submit" class="btn btn-dark mt-3">
@@ -36,10 +40,9 @@
 <div class="container">
    <h1>Comments</h1>
    <ul class="list-group">
-      <li class="list-group-item">Comment 1<a href="#" class="btn btn-danger float-end">Delete</a></li>
-      <li class="list-group-item">Comment 2<a href="#" class="btn btn-danger float-end">Delete</a></li>
-      <li class="list-group-item">Comment 3<a href="#" class="btn btn-danger float-end">Delete</a></li>
-      <li class="list-group-item">Comment 4<a href="#" class="btn btn-danger float-end">Delete</a></li>
+      @foreach ($comments as $comment)
+      <li class="list-group-item">{{ $comment->body }}<a href="#" class="btn btn-danger float-end">Delete</a></li>
+      @endforeach
    </ul>
 </div>
     
