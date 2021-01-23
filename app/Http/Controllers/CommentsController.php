@@ -13,8 +13,13 @@ class CommentsController extends Controller
         ]);
         $comment = new Comment();
         $comment->body = $request->body;
-        $comment->id = $post->post_id;
+        $comment->post_id = $post->id;
         $comment->save();
-        return redirect("/posts/$post->post_id");
+        return redirect("/posts/$post->id");
+    }
+
+    public function delete(Post $post, Comment $comment) {
+        $comment->delete();
+        return redirect("/posts/$post->id");
     }
 }

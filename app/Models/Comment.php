@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Comment extends Model
 {
     use HasFactory;
-    protected $primaryKey = 'comment_id';
     public function post() {
         return $this->belongsTo(Post::class);
     }

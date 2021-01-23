@@ -11,9 +11,9 @@
             class="card-img-top w-25 h-auto mb-3" alt="...">
          <p class="card-text">{{ substr($post->body,0,100) }}</p>
          <button type="button" class="btn btn-primary">Comments
-            <span class="badge bg-secondary">4</span>
+            <span class="badge bg-secondary">{{ count($post->comments) }}</span>
          </button>
-         <a href="{{ route('posts.show',$post->post_id) }}" class="btn btn-primary">View Post</a>
+         <a href="{{ route('posts.show',$post->id) }}" class="btn btn-primary">View Post</a>
       </div>
    </div>
 </div>

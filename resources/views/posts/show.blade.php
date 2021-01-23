@@ -14,13 +14,13 @@
          <button type="button" class="btn btn-primary">
             Views <span class="badge bg-secondary">{{ $post->view }}</span>
          </button>
-         <a href="{{ route('posts.edit', $post->post_id) }}" class="btn btn-primary">Edit</a>
-         <form action="{{ route('posts.delete',$post->post_id) }}" method="post" enctype="multipart/form-data" class="d-inline">
+         <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-primary">Edit</a>
+         <form action="{{ route('posts.delete',$post->id) }}" method="post" enctype="multipart/form-data" class="d-inline">
          @csrf
          @method('DELETE')
             <input type="submit" value="Delete" class="btn btn-danger">
          </form>
-         <form action="{{ route('comment.store',$post->post_id) }}" method="POST" enctype="multipart/form-data" class="mt-3">
+         <form action="{{ route('comment.store',$post->id) }}" method="POST" enctype="multipart/form-data" class="mt-3">
          @csrf
             <div class="form-group">
                <label for="comment"><h5>Add Comment</h5></label>
@@ -41,7 +41,13 @@
    <h1>Comments</h1>
    <ul class="list-group">
       @foreach ($comments as $comment)
-      <li class="list-group-item">{{ $comment->body }}<a href="#" class="btn btn-danger float-end">Delete</a></li>
+      <li class="list-group-item">{{ $comment->body }}
+         <form class="float-end d-inline-block" action="{{ route('comment.delete',[$post->id,$comment->id]) }}" method="post" enctype="multipart/form-data" >
+            @csrf
+            @method('DELETE')
+               <input type="submit" value="Delete" class="btn btn-danger">
+         </form>
+      </li>
       @endforeach
    </ul>
 </div>

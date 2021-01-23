@@ -10,7 +10,7 @@ class PostsController extends Controller
     public function index() {
         $posts = Post::latest()->get();
         return view('posts.index',[
-            'posts' => $posts
+            'posts' => $posts,
         ]);
     }
 
@@ -18,7 +18,6 @@ class PostsController extends Controller
         $post->view += 1;
         $post->save();
         $comments = $post->comments;
-        return $comments;
         return view('posts.show', [
             'post' => $post,
             'comments' => $comments
