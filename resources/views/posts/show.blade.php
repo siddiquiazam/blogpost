@@ -7,8 +7,10 @@
       <div class="card-body">
          <h1 class="card-title text-center">{{ $post->title }}</h1>
          <div class="text-center">
-            <img src="/storage/images/{{ $post->image }}"
+            @if ($post->image)
+               <img src="/storage/images/{{ $post->image }}"
                class="card-img-top w-50 h-auto mb-3 push-center" alt="...">
+            @endif
          </div>
          <p class="card-text">{{ $post->body }}</p>
          <button type="button" class="btn btn-primary">

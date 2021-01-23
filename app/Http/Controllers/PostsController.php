@@ -1,68 +1,73 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+
 class PostsController extends Controller
 {
-
-    public function index() {
+    public function index()
+    {
         $posts = Post::latest()->get();
-        return view('posts.index',[
-            'posts' => $posts,
-        ]);
+        return view('posts.index', compact('posts'));
     }
 
-    public function show(Post $post) {
+    public function show(Post $post)
+    {
         $post->view += 1;
         $post->save();
+
         $comments = $post->comments;
-        return view('posts.show', [
-            'post' => $post,
-            'comments' => $comments
-        ]);
+        return view('posts.show', compact('post', 'comments'));
     }
 
-    public function create() {
+    public function create()
+    {
         return view('posts.create');
     }
 
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         $request->validate([
             'title' => 'required',
             'body' => 'required',
-            'image' => 'required|mimes:jpeg,jpg,png,gif'
+            'image' => 'nullable|mimes:jpeg,jpg,png,gif'
         ]);
-        $filename = $request->image->getClientOriginalName();
-        $request->image->storeAs('images',$filename,'public');
+
         $post = new Post();
         $post->title = $request->title;
         $post->body = $request->body;
-        $post->image = $filename;
+
+        if ($request->has('image')) {
+            $filename = $request->image->getClientOriginalName();
+            $request->image->storeAs('images', $filename, 'public');
+            $post->image = $filename;
+        }
+        
         $post->save();
         return redirect('/posts');
     }
 
-    public function edit(Post $post) {
-        return view('posts.edit', [
-            'post' => $post
-        ]);
+    public function edit(Post $post)
+    {
+        return view('posts.edit', compact('post'));
     }
 
-    public function update(Request $request, Post $post) {
+    public function update(Request $request, Post $post)
+    {
         $request->validate([
             'title' => 'required',
             'body' => 'required',
-            'image' => 'mimes:jpeg,jpg,png,gif'
+            'image' => 'nullable|mimes:jpeg,jpg,png,gif'
         ]);
-        if($request->has('image')) {
+
+        if ($request->has('image')) {
             $filename = $request->image->getClientOriginalName();
-            if(!($filename == $post->image)) {
-                Storage::disk('public')->delete('images/'.$post->image);
-                $request->image->storeAs('images',$filename,'public');
-                $post->image = $filename;
-            }
+            Storage::disk('public')->delete('images/'.$post->image);
+            $request->image->storeAs('images', $filename, 'public');
+            $post->image = $filename;
         }
         $post->title = $request->title;
         $post->body = $request->body;
@@ -70,7 +75,8 @@ class PostsController extends Controller
         return redirect('/posts');
     }
 
-    public function delete(Post $post) {
+    public function delete(Post $post)
+    {
         Storage::disk('public')->delete('images/'.$post->image);
         $post->delete();
         return redirect('/posts');
