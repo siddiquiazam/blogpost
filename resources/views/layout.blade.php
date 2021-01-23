@@ -6,6 +6,13 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>BlogPost</title>
    <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
+   <style>
+      #footer {
+         position:fixed;
+         bottom:0;
+         width:100%;
+      }
+   </style>
 </head>
 
 <body>
@@ -27,6 +34,13 @@
       </nav>
    </header>
    @yield('content')
+   <br><br><br><br>
+   {{-- <footer id = "footer" class="bg-dark text-center text-lg-start">
+      <div class="text-center p-3 text-light">
+        © 2021 Copyright:
+        BlogPost.com
+      </div>
+    </footer> --}}
    <script src="{{asset('js/jquery.js')}}"></script>
    <script src="{{asset('js/bootstrap.min.js')}}"></script>
 </body>
