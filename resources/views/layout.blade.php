@@ -23,12 +23,18 @@
             <div class="collapse navbar-collapse">
                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                   <li class="nav-item">
-                     <a class="nav-link active" aria-current="page" href="{{ route('posts') }}">Home</a>
+                     <a class="nav-link" aria-current="page" href="{{ route('home') }}">Home</a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link" aria-current="page" href="{{ route('posts') }}">All Posts</a>
                   </li>
                   <li class="nav-item">
                      <a class="nav-link" href="{{route('posts.create')}}">Create Post</a>
                   </li>
+                     
                </ul>
+               
+               <p class="text-light ml-auto my-2">{{ Auth::user()->name }}</p>
             </div>
          </div>
       </nav>

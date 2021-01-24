@@ -12,16 +12,20 @@
                class="card-img-top w-50 h-auto mb-3 push-center" alt="...">
             @endif
          </div>
+         <h5 class="card-text">Author: {{ $post->user->name }}</h5>
          <p class="card-text">{{ $post->body }}</p>
          <button type="button" class="btn btn-primary">
             Views <span class="badge bg-secondary">{{ $post->view }}</span>
          </button>
+         @if ($user->id == $post->user_id)
          <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-primary">Edit</a>
          <form action="{{ route('posts.delete',$post->id) }}" method="post" enctype="multipart/form-data" class="d-inline">
          @csrf
          @method('DELETE')
             <input type="submit" value="Delete" class="btn btn-danger">
          </form>
+         @endif
+         @if (!($user->id == $post->user_id))
          <form action="{{ route('comment.store',$post->id) }}" method="POST" enctype="multipart/form-data" class="mt-3">
          @csrf
             <div class="form-group">
@@ -36,6 +40,7 @@
                <input type="submit" value="Submit" class="btn btn-dark mt-3">
             </div>
          </form>
+         @endif
       </div>
    </div>
 </div>
@@ -44,11 +49,15 @@
    <ul class="list-group">
       @foreach ($comments as $comment)
       <li class="list-group-item">{{ $comment->body }}
+         @if ($user->id == $comment->user_id)
          <form class="float-end d-inline-block" action="{{ route('comment.delete',[$post->id,$comment->id]) }}" method="post" enctype="multipart/form-data" >
             @csrf
             @method('DELETE')
                <input type="submit" value="Delete" class="btn btn-danger">
          </form>
+         @else
+         <p class="float-end">By- {{ $comment->author}}</p>
+         @endif
       </li>
       @endforeach
    </ul>

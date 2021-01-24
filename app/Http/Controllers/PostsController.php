@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -18,9 +19,9 @@ class PostsController extends Controller
     {
         $post->view += 1;
         $post->save();
-
         $comments = $post->comments;
-        return view('posts.show', compact('post', 'comments'));
+        $user = Auth::user();
+        return view('posts.show', compact('post', 'comments','user'));
     }
 
     public function create()
@@ -35,11 +36,12 @@ class PostsController extends Controller
             'body' => 'required',
             'image' => 'nullable|mimes:jpeg,jpg,png,gif'
         ]);
-
+        
+        $user = Auth::user();
         $post = new Post();
         $post->title = $request->title;
         $post->body = $request->body;
-
+        $post->user_id = $user->id;
         if ($request->has('image')) {
             $filename = $request->image->getClientOriginalName();
             $request->image->storeAs('images', $filename, 'public');

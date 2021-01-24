@@ -11,7 +11,7 @@
             <img src="/storage/images/{{ $post->image }}"
             class="card-img-top w-25 h-auto mb-3" alt="...">
          @endif
-         
+         <h5 class="card-text">Author: {{ $post->user->name }}</h5>
          <p class="card-text">{{ substr($post->body,0,100) }}</p>
          <button type="button" class="btn btn-primary">Comments
             <span class="badge bg-secondary">{{ count($post->comments) }}</span>
