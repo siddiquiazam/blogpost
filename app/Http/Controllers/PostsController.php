@@ -21,7 +21,7 @@ class PostsController extends Controller
         $post->save();
         $comments = $post->comments;
         $user = Auth::user();
-        return view('posts.show', compact('post', 'comments','user'));
+        return view('posts.show', compact('post', 'comments', 'user'));
     }
 
     public function create()
@@ -49,7 +49,7 @@ class PostsController extends Controller
         }
         
         $post->save();
-        return redirect('/posts');
+        return redirect('/home');
     }
 
     public function edit(Post $post)

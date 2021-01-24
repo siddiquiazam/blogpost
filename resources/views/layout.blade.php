@@ -31,10 +31,10 @@
                   <li class="nav-item">
                      <a class="nav-link" href="{{route('posts.create')}}">Create Post</a>
                   </li>
-                     
                </ul>
-               
+               @auth
                <p class="text-light ml-auto my-2">{{ Auth::user()->name }}</p>
+               @endauth
             </div>
          </div>
       </nav>

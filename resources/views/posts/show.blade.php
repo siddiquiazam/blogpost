@@ -17,6 +17,7 @@
          <button type="button" class="btn btn-primary">
             Views <span class="badge bg-secondary">{{ $post->view }}</span>
          </button>
+@auth
          @if ($user->id == $post->user_id)
          <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-primary">Edit</a>
          <form action="{{ route('posts.delete',$post->id) }}" method="post" enctype="multipart/form-data" class="d-inline">
@@ -62,5 +63,5 @@
       @endforeach
    </ul>
 </div>
-    
+@endauth
 @endsection
